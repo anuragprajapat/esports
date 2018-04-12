@@ -51,8 +51,8 @@ export default class App extends React.Component {
       } else {
         console.log('Logged with phone',token);
         // if token exists in database.. take him to home screen directly.
-        // else ask him to enter name and save user details 
-        
+        // else ask him to enter name ans
+        // TODO save the token in the api
         
         const resetAction = NavigationActions.reset({
           index: 0,
@@ -62,22 +62,22 @@ export default class App extends React.Component {
         })
         this.props.navigation.dispatch(resetAction)
         
-        
-
-        /*
-        *Also save or update user's phone number as verified in Top Resumer DB
-        */
-        //self.props.navigation.navigate('Home');
+      
       }
     })
     .catch((err)=>{
       console.log(err);
-      //TODO : handle if login is cancelled
+      //TODO : handle is login is cancelled
 
     });
   }
 
-
+  waitForSplash(){
+    var self=this;
+    setTimeout(function(){
+      self.props.navigation.navigate();
+    },3000);
+  }
   render() 
   {
     return (
@@ -85,10 +85,11 @@ export default class App extends React.Component {
         <Image resizeMode="cover" source={require('./../resources/images/splash.png')} style={{flex:1,width:window.width,height:window.height}}/>
 
         <View style={{position:'absolute',width:screenWidth}}>
-        
+
           <View style={{flex:1,alignItems:'center',justifyContent:'center',marginTop:verticalScale(500),}}>
           
             <TouchableOpacity 
+            //onPress={()=>this.props.navigation.navigate('Signup')}
             onPress={()=>this.initiateLogin()}
             style={[styles.buttonStyle,{marginTop:verticalScale(0),backgroundColor:'#fff'}]}>
               <Text style={{fontFamily:'open_sans_bold',fontSize:verticalScale(14),color:global.APP_PRIMARY_COLOR}}>Sign in</Text>
