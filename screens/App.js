@@ -15,7 +15,7 @@ import {scale,verticalScale} from './../resources/scale'
 import { StackNavigator } from 'react-navigation';
 const screenWidth= Dimensions.get('window').width;
 import { NavigationActions } from 'react-navigation'
-
+import {resetStackToHome} from './../helpers/functions';
 import RNAccountKit from 'react-native-facebook-account-kit'
 
 export default class App extends React.Component {
@@ -53,16 +53,7 @@ export default class App extends React.Component {
         // if token exists in database.. take him to home screen directly.
         // else ask him to enter name ans
         // TODO save the token in the api
-        
-        const resetAction = NavigationActions.reset({
-          index: 0,
-          actions: [
-            NavigationActions.navigate({ routeName: 'Home'})
-          ]
-        })
-        this.props.navigation.dispatch(resetAction)
-        
-      
+        resetStackToHome(this);
       }
     })
     .catch((err)=>{
