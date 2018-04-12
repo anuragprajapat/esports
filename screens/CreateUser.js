@@ -23,7 +23,7 @@ import Gems from './../customModules/cardview';
 
 import RNAccountKit from 'react-native-facebook-account-kit'
 
-export default class CreateTeamScreen extends React.Component {
+export default class CreateUserScreen extends React.Component {
 
     static navigationOptions = ({ navigation }) => ({
   
