@@ -11,7 +11,10 @@
 		"react-native": "0.50.4",
 		"react-native-facebook-account-kit": "^0.9.0",
 		"react-native-linear-gradient": "^2.3.0",
+		"react-native-modal-datetime-picker": "^4.13.0",
+		"react-native-select-multiple": "^1.2.0",
 		"react-native-shared-preferences": "^1.0.0",
+		"react-native-simple-modal": "^8.0.0",
 		"react-native-vector-icons": "^4.4.3",
 		"react-navigation": "^1.0.0-beta.21"
 	},

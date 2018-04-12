@@ -22,12 +22,12 @@ import Gems from './../customModules/cardview';
 
 import RNAccountKit from 'react-native-facebook-account-kit'
 
-export default class HomeScreen extends React.Component {
+export default class NotificationScreen extends React.Component {
 
     static navigationOptions = ({ navigation }) => ({
   
-        title: 'Home',
-        header:<CustomHeader title="Home" back={()=>navigation.goBack()}/>,
+   
+        header:<CustomHeader title="Notification" back={()=>navigation.goBack()}/>,
         });
     
 
@@ -53,17 +53,26 @@ export default class HomeScreen extends React.Component {
     render() 
     {
         return (
-        <View style={{flex:1,backgroundColor:'#f8f8f8',padding:scale(12),alignContent:'center',justifyContent:'center'}}>
-            <TouchableOpacity 
-                onPress={()=>this.props.navigation.navigate('CreateAuction')}
-                style={{padding:scale(15),backgroundColor:global.APP_PRIMARY_COLOR}}>
-                <Text style={{color:'#fff',textAlign:'center',fontFamily:'open_sans_regular'}}>Create an Auction</Text>
-            </TouchableOpacity>
+        <View style={{flex:1,backgroundColor:global.WHITE_SOMKE,padding:scale(12)}}>
 
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate('Join')} style={{padding:scale(15),backgroundColor:global.APP_PRIMARY_COLOR,marginTop:verticalScale(20)}}>
-                <Text style={{color:'#fff',fontFamily:'open_sans_regular',textAlign:'center'}}>Join an Auction</Text>
-            </TouchableOpacity>
 
+        <TouchableOpacity onPress={()=>this.logout()}>
+            <Text>Logout</Text>
+        </TouchableOpacity>
+        {/* <View style={{flexDirection:'row',justifyContent:'space-around',}}>
+            <Gems gemColor="#01c2e1" tileName="SAP CV" singleLetterColor="#00aec9"/>
+            <Gems gemColor="#788cbf" tileName="CV for British Telecom" singleLetterColor="#64729e"/>
+        </View>
+
+        <View style={{flexDirection:'row',justifyContent:'space-around',paddingTop:verticalScale(12)}}>
+            <Gems gemColor="#fe3c57" tileName="Full Stack for Capillary" singleLetterColor="#e4364f"/>
+            <Gems gemColor="#cfa16d" tileName="Full Stack for QikPod" singleLetterColor="#bb9362"/>
+        </View>
+
+        <View style={{flexDirection:'row',justifyContent:'space-around',paddingTop:verticalScale(12)}}>
+            <Gems gemColor="#9678cf" tileName="Machine Learning" singleLetterColor="#8167b1"/>
+            <Gems gemColor="#efbe31" tileName="Create New" singleLetterColor="#d6a000"/>
+        </View> */}
 
         </View>
         );

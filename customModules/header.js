@@ -40,7 +40,7 @@ class CustomHeader extends Component {
                 </TouchableOpacity>
             }
             <View style={{alignSelf:'center',position:'absolute',flex:8}}>
-                <Text style={{fontFamily:'open_sans_regular',textAlign:'center',fontSize:verticalScale(20),color:'#f8f8f8'}}>{this.props.title}</Text>
+                <Text style={{fontFamily:'open_sans_bold',textAlign:'center',fontSize:verticalScale(20),color:'#f8f8f8'}}>{this.props.title}</Text>
             </View>
         </LinearGradient>
         )

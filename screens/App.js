@@ -50,6 +50,9 @@ export default class App extends React.Component {
         console.log('Login cancelled')
       } else {
         console.log('Logged with phone',token);
+        
+        // TODO save the token in the api
+        
         const resetAction = NavigationActions.reset({
           index: 0,
           actions: [
@@ -83,23 +86,13 @@ export default class App extends React.Component {
   {
     return (
       <View style={{flex:1,}}>
-        <Image source={require('./../resources/images/splash.jpg')} style={{flex:1,width:window.width,height:window.height}}/>
+        <Image resizeMode="cover" source={require('./../resources/images/splash.png')} style={{flex:1,width:window.width,height:window.height}}/>
 
-        <View style={styles.overlay}>
+        <View style={{position:'absolute',width:screenWidth}}>
         
-          <View style={{flex:60,backgroundColor:global.APP_PRIMARY_COLOR,alignItems:'center',justifyContent:'center'}}>
-          
-            <View style={{flexDirection:'row',height:verticalScale(70),width:scale(70),justifyContent:'space-between'}}>
-              <View style={{width:scale(20),height:verticalScale(40),backgroundColor:'#fff',alignSelf:'flex-end'}}></View>
-              <View style={{width:scale(20),height:verticalScale(70),backgroundColor:global.APP_ACCENT_COLOR,alignSelf:'flex-end'}}></View>
-              <View style={{width:scale(20),height:verticalScale(30),backgroundColor:'#fff',alignSelf:'flex-end'}}></View>
-            </View>
+        
 
-            <Text style={{fontFamily:'open_sans_regular',fontSize:verticalScale(25),marginTop:verticalScale(30),color:'#fff'}}>T O P  R E S U M E R</Text>
-          
-          </View>
-
-          <View style={{flex:40,backgroundColor:global.APP_PRIMARY_COLOR,alignItems:'center',justifyContent:'center'}}>
+          <View style={{flex:1,alignItems:'center',justifyContent:'center',marginTop:verticalScale(500),}}>
 
             {/* <TouchableOpacity style={styles.buttonStyle}>
               <Text style={{fontFamily:'open_sans_bold',fontSize:verticalScale(14),color:'#3b5998'}}>Sign up with Linkedin</Text>
@@ -108,8 +101,8 @@ export default class App extends React.Component {
             <TouchableOpacity 
             //onPress={()=>this.props.navigation.navigate('Signup')}
             onPress={()=>this.initiateLogin()}
-            style={[styles.buttonStyle,{marginTop:verticalScale(20),backgroundColor:global.APP_ACCENT_COLOR}]}>
-              <Text style={{fontFamily:'open_sans_bold',fontSize:verticalScale(14),color:'#fff'}}>Sign in</Text>
+            style={[styles.buttonStyle,{marginTop:verticalScale(0),backgroundColor:'#fff'}]}>
+              <Text style={{fontFamily:'open_sans_bold',fontSize:verticalScale(14),color:global.APP_PRIMARY_COLOR}}>Sign in</Text>
             </TouchableOpacity>
 
             {/* <View style={{flexDirection:'row',marginTop:verticalScale(20)}}>

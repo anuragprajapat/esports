@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Text,
+  Keyboard,
   View
 } from 'react-native';
 import  styles from './../resources/styles';
@@ -22,12 +23,12 @@ import Gems from './../customModules/cardview';
 
 import RNAccountKit from 'react-native-facebook-account-kit'
 
-export default class HomeScreen extends React.Component {
+export default class CreateUserScreen extends React.Component {
 
     static navigationOptions = ({ navigation }) => ({
   
-        title: 'Home',
-        header:<CustomHeader title="Home" back={()=>navigation.goBack()}/>,
+        title: 'Create Account',
+        header:<CustomHeader title="Make Your Team" back={()=>navigation.goBack()}/>,
         });
     
 
@@ -54,16 +55,16 @@ export default class HomeScreen extends React.Component {
     {
         return (
         <View style={{flex:1,backgroundColor:'#f8f8f8',padding:scale(12),alignContent:'center',justifyContent:'center'}}>
-            <TouchableOpacity 
-                onPress={()=>this.props.navigation.navigate('CreateAuction')}
-                style={{padding:scale(15),backgroundColor:global.APP_PRIMARY_COLOR}}>
-                <Text style={{color:'#fff',textAlign:'center',fontFamily:'open_sans_regular'}}>Create an Auction</Text>
+           <TextInput
+                placeholder="Your team name"
+                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                onChangeText={(text) => this.setState({text})}
+                underlineColorAndroid="#f8f8f8"
+                value={this.state.text}
+            />
+            <TouchableOpacity onPress={()=>{Keyboard.dismiss();this.props.navigation.navigate('Bidding')}} style={{padding:scale(15),backgroundColor:global.APP_PRIMARY_COLOR,marginTop:verticalScale(20)}}>
+                <Text style={{color:'#fff',fontFamily:'open_sans_regular',textAlign:'center'}}>Make Team</Text>
             </TouchableOpacity>
-
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate('Join')} style={{padding:scale(15),backgroundColor:global.APP_PRIMARY_COLOR,marginTop:verticalScale(20)}}>
-                <Text style={{color:'#fff',fontFamily:'open_sans_regular',textAlign:'center'}}>Join an Auction</Text>
-            </TouchableOpacity>
-
 
         </View>
         );
