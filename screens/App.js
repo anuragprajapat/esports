@@ -20,6 +20,13 @@ import RNAccountKit from 'react-native-facebook-account-kit'
 
 export default class App extends React.Component {
 
+  constructor(){
+    super();
+    this.state={
+      animating:false
+    }
+  }
+
   componentDidMount(){
    // this.waitForSplash();
 
@@ -50,10 +57,11 @@ export default class App extends React.Component {
         console.log('Login cancelled')
       } else {
         console.log('Logged with phone',token);
-        // if token exists in database.. take him to home screen directly.
-        // else ask him to enter name ans
-        // TODO save the token in the api
-        resetStackToHome(this);
+        /*
+        getUser find user phone number and check if it exists in database
+        */
+        self.getUserInfo();
+        //resetStackToHome(this);
       }
     })
     .catch((err)=>{
@@ -63,16 +71,48 @@ export default class App extends React.Component {
     });
   }
 
-  waitForSplash(){
-    var self=this;
-    setTimeout(function(){
-      self.props.navigation.navigate();
-    },3000);
+  getUserInfo(){
+    RNAccountKit.getCurrentAccount()
+    .then((account) => {
+      console.log("info----\n",account);
+      // call api and check if user exists or not
+      return fetch('http://139.162.45.46/gaminq/checkIfUserExists.php?phone='+account.phoneNumber,{
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: null,
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          this.setState({
+              animating:false
+          });
+          console.log(responseJson);
+        })
+        .catch((error) => {
+        console.error(error);
+        this.setState({
+            animating:false
+        });
+        Alert.Alert("Alert","Some error occured");
+      });
+
+    })
+    .catch(()=>{
+        console.log("Cannot get user info");
+    });
   }
+
   render() 
   {
     return (
       <View style={{flex:1,}}>
+        {
+          this.state.animating &&
+          <ActivityIndicator size="large" color="#000" />
+        }
         <Image resizeMode="cover" source={require('./../resources/images/splash.png')} style={{flex:1,width:window.width,height:window.height}}/>
 
         <View style={{position:'absolute',width:screenWidth}}>

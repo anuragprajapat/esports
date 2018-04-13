@@ -141,10 +141,10 @@ export default class CreateAuctionScreen extends React.Component {
         return (
         <View style={{flex:1,backgroundColor:'#f8f8f8',padding:scale(12),alignContent:'center',}}>
 
-{
+            {
                this.state.animating &&
                 <ActivityIndicator size="large" color="#000" />
-           }
+            }
             <TextInput
                 placeholder="Auction Name"
                 style={{height: 40, borderColor: 'gray', borderWidth: 1}}
