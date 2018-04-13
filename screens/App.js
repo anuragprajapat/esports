@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   Text,
+  Alert,
   View,
   TouchableOpacity
 } from 'react-native';
@@ -60,7 +61,7 @@ export default class App extends React.Component {
         /*
         getUser find user phone number and check if it exists in database
         */
-        self.getUserInfo();
+        self.getUserInfo(token.token);
         //resetStackToHome(this);
       }
     })
@@ -71,12 +72,13 @@ export default class App extends React.Component {
     });
   }
 
-  getUserInfo(){
+  getUserInfo(token){
+    var self=this;
     RNAccountKit.getCurrentAccount()
     .then((account) => {
       console.log("info----\n",account);
       // call api and check if user exists or not
-      return fetch('http://139.162.45.46/gaminq/checkIfUserExists.php?phone='+account.phoneNumber,{
+      return fetch('http://139.162.45.46/gaminq/checkIfUserExists.php?phone='+account.phoneNumber.number,{
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -90,14 +92,25 @@ export default class App extends React.Component {
               animating:false
           });
           console.log(responseJson);
+          if(responseJson.length!=0){
+            resetStackToHome(this);
+          }
+          else{
+            //Alert.alert("New user");
+            self.props.navigation.navigate('CreateUser',{
+              token:token,
+              phone:account.phoneNumber.number
+            });
+            //ask for name 
+          }
         })
         .catch((error) => {
-        console.error(error);
-        this.setState({
-            animating:false
+          console.error(error);
+          this.setState({
+              animating:false
+          });
+          Alert.alert("Alert","Some error occured");
         });
-        Alert.Alert("Alert","Some error occured");
-      });
 
     })
     .catch(()=>{

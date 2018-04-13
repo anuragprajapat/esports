@@ -29,6 +29,7 @@ import HomeScreen from './Home';
 import NotificationsScreen from './NotificationScreen';
 import SettingsScreen from './SettingsScreen';
 import CreateAuctionScreen from './CreateAuction';
+import CreateUser from './CreateUser';
 // screens
 
 
@@ -164,7 +165,6 @@ const MyNav = TabNavigator({
       style: {
           height:verticalScale(60),
           backgroundColor: global.APP_PRIMARY_COLOR,
-          color:'red',
           elevation:3
           //alignItems:'center',
           //justifyContent:'center'
@@ -202,7 +202,7 @@ const RootNav = StackNavigator({
     CreateTeam: {screen: CreateTeamScreen},
     Bidding: {screen: BiddingPageScreen},
     CreateAuction: {screen: CreateAuctionScreen},
-
+    CreateUser:{screen:CreateUser}
 });
 
 
