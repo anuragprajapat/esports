@@ -6,6 +6,7 @@ import {
   Dimensions,
   Text,
   Alert,
+  AsyncStorage,
   View,
   TouchableOpacity
 } from 'react-native';
@@ -93,6 +94,9 @@ export default class App extends React.Component {
           });
           console.log(responseJson);
           if(responseJson.length!=0){
+            //set async storage items
+            AsyncStorage.setItem('phone', responseJson[0].phone);
+            AsyncStorage.setItem('name', responseJson[0].name);
             resetStackToHome(this);
           }
           else{

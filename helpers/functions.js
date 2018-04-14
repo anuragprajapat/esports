@@ -1,5 +1,5 @@
 import { NavigationActions } from 'react-navigation';
-
+import {AsyncStorage} from 'react-native';
 
 export function resetStackToHome(context){
     const resetAction = NavigationActions.reset({
@@ -9,4 +9,13 @@ export function resetStackToHome(context){
         ]
       })
       context.props.navigation.dispatch(resetAction)
+}
+export async function getKey(key) {
+  try {
+    const value = await AsyncStorage.getItem('key');
+    return value;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 }

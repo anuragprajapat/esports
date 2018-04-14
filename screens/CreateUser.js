@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Alert,
   Text,
+  AsyncStorage,
   Keyboard,
   View
 } from 'react-native';
@@ -22,7 +23,7 @@ var activateOtp1=true,activateOtp2=false,activateOtp3=false,activateOtp4=false;
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomHeader from './../customModules/header';
 import Gems from './../customModules/cardview';
-import {resetStackToHome} from './../helpers/functions';
+import {resetStackToHome,getKey} from './../helpers/functions';
 
 import RNAccountKit from 'react-native-facebook-account-kit'
 
@@ -82,6 +83,8 @@ export default class CreateUserScreen extends React.Component {
               animating:false
           });
           console.log(responseJson);
+          AsyncStorage.setItem('phone', params.phone);
+          AsyncStorage.setItem('name', params.name);
           resetStackToHome(self);
         })
         .catch((error) => {

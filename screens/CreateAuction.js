@@ -45,6 +45,7 @@ const teams = [
   { label: 'UAE', value: '14' },
 ]
 import RNAccountKit from 'react-native-facebook-account-kit'
+import { getKey } from '../helpers/functions';
 
 export default class CreateAuctionScreen extends React.Component {
 
@@ -98,6 +99,8 @@ export default class CreateAuctionScreen extends React.Component {
             this.setState({
                 animating:true
             });
+            var phone=getKey('phone');
+            console.log(phone);
     
             return fetch('http://139.162.45.46/gaminq/createAuction.php',{
                 method: 'POST',
@@ -109,7 +112,7 @@ export default class CreateAuctionScreen extends React.Component {
                     auctionName: this.state.auctionName,
                     countriesAllowed: str,
                     endTime:this.state.selectedDate,
-                    createdBy:"1"
+                    createdBy:phone
                 }),
                 })
               .then((response) => response.json())
@@ -127,7 +130,7 @@ export default class CreateAuctionScreen extends React.Component {
                 this.setState({
                     animating:false
                 });
-                Alert.Alert("Alert","Some error occured");
+                Alert.alert("Alert","Some error occured");
               });
         }
 
