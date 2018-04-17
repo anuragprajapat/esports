@@ -62,6 +62,7 @@ export default class CreateTeamScreen extends React.Component {
                 underlineColorAndroid="#f8f8f8"
                 value={this.state.text}
             />
+            
             <TouchableOpacity onPress={()=>{Keyboard.dismiss();this.props.navigation.navigate('Bidding')}} style={{padding:scale(15),backgroundColor:global.APP_PRIMARY_COLOR,marginTop:verticalScale(20)}}>
                 <Text style={{color:'#fff',fontFamily:'open_sans_regular',textAlign:'center'}}>Make Team</Text>
             </TouchableOpacity>

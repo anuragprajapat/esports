@@ -122,7 +122,7 @@ const MyNav = TabNavigator({
     Notifications: {
       screen: NotificationsScreen,
       navigationOptions: {
-          tabBarLabel:'Notification',
+          tabBarLabel:'My Leagues',
           tabBarIcon:({ tintColor }) => (<Icon name='bell' size={verticalScale(20)} color={tintColor} />)
       }  
     },
