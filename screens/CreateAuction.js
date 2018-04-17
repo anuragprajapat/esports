@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   ToastAndroid,
+  AsyncStorage,
   Alert,
   Text,
   ActivityIndicator,
@@ -45,7 +46,7 @@ const teams = [
   { label: 'UAE', value: '14' },
 ]
 import RNAccountKit from 'react-native-facebook-account-kit'
-import { getKey } from '../helpers/functions';
+import { resetStackToJoinAuction } from '../helpers/functions';
 
 export default class CreateAuctionScreen extends React.Component {
 
@@ -85,7 +86,7 @@ export default class CreateAuctionScreen extends React.Component {
       this._hideDateTimePicker();
     };
 
-    createAuction(){
+    async createAuction(){
         console.log(this.state.auctionName,this.state.selectedFruits,this.state.selectedDate);
         var str="";
         if(this.state.auctionName=="" || this.state.selectedFruits.length==0 || this.state.selectedDate=='No date Selected'){
@@ -99,10 +100,10 @@ export default class CreateAuctionScreen extends React.Component {
             this.setState({
                 animating:true
             });
-            var phone=getKey('phone');
+            var phone=value = await AsyncStorage.getItem('phone');;
             console.log(phone);
     
-            return fetch('http://139.162.45.46/gaminq/createAuction.php',{
+            fetch('http://139.162.45.46/gaminq/createAuction.php',{
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -122,7 +123,8 @@ export default class CreateAuctionScreen extends React.Component {
                     animating:false
                 });
                 console.log(responseJson);
-                this.props.navigation.navigate('Join');
+                //this.props.navigation.navigate('Join');
+                resetStackToJoinAuction(this);
                 ToastAndroid.show('Auction created successfuly !', ToastAndroid.SHORT);
               })
               .catch((error) => {

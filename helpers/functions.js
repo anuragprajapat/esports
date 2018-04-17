@@ -10,6 +10,19 @@ export function resetStackToHome(context){
       })
       context.props.navigation.dispatch(resetAction)
 }
+
+export function resetStackToJoinAuction(context){
+  const resetAction = NavigationActions.reset({
+      index: 1,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Home'}),
+        NavigationActions.navigate({ routeName: 'Join'})
+      ]
+    })
+    context.props.navigation.dispatch(resetAction)
+}
+
+
 export async function getKey(key) {
   try {
     const value = await AsyncStorage.getItem('key');
