@@ -131,7 +131,7 @@ export default class JoinAuctionScreen extends React.Component {
                 }
                 else{
                     ToastAndroid.show(responseJson.msg, ToastAndroid.SHORT);
-                    this.props.navigation.navigate('CreateTeam');
+                    this.props.navigation.navigate('CreateTeam',{activeAuction:this.state.activeAuction});
                 }
                 this.getAuctions();
               })

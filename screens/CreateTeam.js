@@ -5,6 +5,8 @@ import {
   StyleSheet,
   TextInput,
   Dimensions,
+  ActivityIndicator,
+  AsyncStorage,
   TouchableOpacity,
   Text,
   Keyboard,
@@ -35,35 +37,58 @@ export default class CreateTeamScreen extends React.Component {
     constructor(props){
         super(props);
         this.state={
-
+            teamName:''
         }
     }
 
-    logout(){
-        var self=this;
-        RNAccountKit.logout()
-        .then(() => {
-          console.log('Logged out');
-          self.props.navigation.navigate("App");
-        })
-        .catch(()=>{
-            console.log('cannot Log out');
+    async createTeam(){
+        const {params}=this.props.navigation.state;
+        console.log(params);
+        this.setState({
+            animating:true
+        });
+        var phone=value = await AsyncStorage.getItem('phone');
+        return fetch('http://139.162.45.46/gaminq/createTeam.php?userId='+phone+'&teamName='+this.state.teamName+'&auctionId='+params.activeAuction.id)
+          .then((response) => response.json())
+          .then((responseJson) => {
+            this.setState({
+                auctions:responseJson,
+                animating:false
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+            this.setState({
+                animating:false
+            });
         });
     }
 
+    componentDidMount(){
+    
+    }
+
+    
     render() 
     {
+        const {params}=this.props.navigation.state;
         return (
         <View style={{flex:1,backgroundColor:'#f8f8f8',padding:scale(12),alignContent:'center',justifyContent:'center'}}>
-           <TextInput
-                placeholder="Your team name"
-                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-                onChangeText={(text) => this.setState({text})}
-                underlineColorAndroid="#f8f8f8"
-                value={this.state.text}
-            />
+            {
+               this.state.animating &&
+                <ActivityIndicator size="large" color="#000" />
+            }
+            <Text style={{fontFamily:'open_sans_bold',textAlign:'center',marginBottom:verticalScale(30)}}>{params.activeAuction.name}</Text>
+            <TextInput
+                    placeholder="Your team name"
+                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    onChangeText={(text) => this.setState({teamName:text})}
+                    underlineColorAndroid="#f8f8f8"
+                    autoFocus={true}
+                    value={this.state.teamName}
+                />
             
-            <TouchableOpacity onPress={()=>{Keyboard.dismiss();this.props.navigation.navigate('Bidding')}} style={{padding:scale(15),backgroundColor:global.APP_PRIMARY_COLOR,marginTop:verticalScale(20)}}>
+            <TouchableOpacity onPress={()=>this.createTeam()} style={{padding:scale(15),backgroundColor:global.APP_PRIMARY_COLOR,marginTop:verticalScale(20)}}>
                 <Text style={{color:'#fff',fontFamily:'open_sans_regular',textAlign:'center'}}>Make Team</Text>
             </TouchableOpacity>
 

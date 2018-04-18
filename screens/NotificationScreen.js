@@ -114,27 +114,34 @@ export default class JoinAuctionScreen extends React.Component {
                 <ActivityIndicator size="large" color="#000" />
             }
             <ScrollView style={{flex:1,height:verticalScale(300)}} contentContainerStyle={{backgroundColor:'#f8f8f8',padding:scale(12),}}>
-        
-            <FlatList
-            data={this.state.auctions}
-            renderItem={({ item }) => (
-            <View style={{backgroundColor:'#fff',borderRadius:verticalScale(3),elevation:3,padding:scale(10),marginBottom:verticalScale(10)}}>
-                <Text style={{fontFamily:'open_sans_bold',fontSize:verticalScale(18)}}>{item.name}</Text>
-                <Text style={{fontFamily:'open_sans_regular',fontSize:verticalScale(18)}}>Ends in : {item.endTime} days</Text>
-                <TouchableOpacity onPress={()=>this.setState({
-                    modalStatus:true,
-                    activeAuction:{
-                        name:item.name,
-                        id:item.id
-                    }
-                })} style={{alignSelf:'flex-end',padding:scale(5),backgroundColor:global.APP_PRIMARY_COLOR,marginTop:verticalScale(20),width:scale(100),borderRadius:verticalScale(3),}}>
-                <Text style={{color:'#fff',fontFamily:'open_sans_bold',textAlign:'center',fontSize:verticalScale(18)}}>Enter</Text>
-                </TouchableOpacity>
-            </View>
+            {
+                this.state.auctions.length!=0 &&
+                <FlatList
+                data={this.state.auctions}
+                renderItem={({ item }) => (
+                <View style={{backgroundColor:'#fff',borderRadius:verticalScale(3),elevation:3,padding:scale(10),marginBottom:verticalScale(10)}}>
+                    <Text style={{fontFamily:'open_sans_bold',fontSize:verticalScale(18)}}>{item.name}</Text>
+                    <Text style={{fontFamily:'open_sans_regular',fontSize:verticalScale(18)}}>Ends in : {item.endTime} days</Text>
+                    <TouchableOpacity onPress={()=>this.props.navigation.navigate('CreateTeam',{activeAuction:{
+                            name:item.name,
+                            id:item.id}}) } style={{alignSelf:'flex-end',padding:scale(5),backgroundColor:global.APP_PRIMARY_COLOR,marginTop:verticalScale(20),width:scale(100),borderRadius:verticalScale(3),}}>
+                    <Text style={{color:'#fff',fontFamily:'open_sans_bold',textAlign:'center',fontSize:verticalScale(18)}}>Enter</Text>
+                    </TouchableOpacity>
+                </View>
 
-            )}
-        //keyExtractor={item.id}
-      />
+                )}
+            //keyExtractor={item.id}
+        />
+            }
+            {
+                this.state.auctions.length==0 &&
+                <View style={{flex:1}}>
+                    <Text>
+                        No Leagues. Join a league to start making your team.
+                    </Text>
+                </View>
+            }
+            
 
         </ScrollView>
         
